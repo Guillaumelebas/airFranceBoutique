@@ -8,8 +8,8 @@ import MonVol from './components/mon-vol';
 const Main = () => {
   return (
       <Switch>
-        <Route exact path='/Accueil' component={Home}></Route>
-        <Route exact path='/Liste' component={Liste}></Route>
+        <Route exact path='/accueil' component={Home}></Route>
+        <Route exact path='/liste' component={Liste}></Route>
         <Route exact path='/ma-reservation' component={MonVol}></Route>
       </Switch>
   );
