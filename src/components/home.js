@@ -1,59 +1,53 @@
 import * as React from "react";
-import {VolService} from "../services/vol-service";
-const BASE_URL = 'http://localhost:4000';
+import Header from "./header";
 
 class Home extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            vols: []
-        };
-    }
-
-    componentDidMount() {
-        /*VolService.getVols()
-            .then(
-                (vols) => this.setState({vols: vols})
-            );*/
-        fetch(`${BASE_URL}/vol`)
-            .then((response) => response.json() )
-            .then( (r) => {this.setState({vols: r.data})} );
-            // .then((response) => this.setState({vols:response.data}) );
-    }
 
     render() {
         return (
+            <div>
+            <Header />
+            <section id="one" className="wrapper style2">
+            <div className="inner">
+                <div className="grid-style">
 
-            <body>
-            <div class="testbox">
-              <form action="/">
-                <div class="banner">
-                  <h1>Enregistrer son vol</h1>
+                    <div>
+                        <div className="box">
+                            <div className="image fit">
+                                <img src="images/pic02.jpg" alt=""/>
+                            </div>
+                            <div className="content">
+                                <header className="align-center">
+                                    <p>Je cherche mon voyage</p>
+                                    <h2>Lorem ipsum dolor</h2>
+                                </header>
+                                <footer className="align-center">
+                                    <a href="/liste" className="button alt">Cliquez ici</a>
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div className="box">
+                            <div className="image fit">
+                                <img src="images/pic03.jpg" alt=""/>
+                            </div>
+                            <div className="content">
+                                <header className="align-center">
+                                    <p>Informations sur mon voyage</p>
+                                    <h2>Vestibulum sit amet</h2>
+                                </header>
+                                <footer className="align-center">
+                                    <a href="/mon-vol" className="button alt">Cliquez ici</a>
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <p>Runner Information</p>
-                <div class="item">
-                  <label for="nom">Nom<span>*</span></label>
-                  <input id="nom" type="text" name="nom" required/>
-                </div>
-                <div class="item">
-                  <label for="prenom">Prenom<span>*</span></label>
-                  <input id="prenom" type="text" name="prenom" required/>
-                </div>
-                <div class="item">
-                  <p>Vol</p>
-                  <select>
-                    <option selected value="" disabled selected></option>
-                      { this.state.vols.map(
-                          (item, index) => <option value={"vol"+index} >{item.idVol}</option>
-                      )}
-                  </select>
-                </div>
-                <div class="btn-block">
-                  <button type="submit" href="/">SUBMIT</button>
-                </div>
-              </form>
             </div>
-          </body>);
+        </section>
+            </div>);
     }
 }
 
