@@ -6,7 +6,8 @@ class Liste extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            vols: []
+            vols: [],
+            result: []
         };
     }
 
@@ -23,34 +24,34 @@ class Liste extends React.Component {
 
     render() {
         return (
-            <div class="testbox">
-                <form action="/liste">
-                    <div class="banner">
-                        <h1>Enregistrer son vol</h1>
-                    </div>
-                    <p>Runner Information</p>
-                    <div class="item">
-                        <label for="nom">Nom<span>*</span></label>
-                        <input id="nom" type="text" name="nom" required/>
-                    </div>
-                    <div class="item">
-                        <label for="prenom">Prenom<span>*</span></label>
-                        <input id="prenom" type="text" name="prenom" required/>
-                    </div>
-                    <div class="item">
-                        <p>Vol</p>
-                        <select>
-                            <option selected value="" disabled selected></option>
-                            { this.state.vols.map(
-                                (item, index) => <option value={"vol"+index} >{item.idVol}</option>
-                            )}
-                        </select>
-                    </div>
-                    <div class="btn-block">
-                        <button type="submit" href="#">SUBMIT</button>
+                <form method="GET" action="/liste">
+                    <div className="row uniform">
+                        <div className="6u 12u$(xsmall)">
+                            <input type="text" name="nom" id="nom" placeholder="Nom" required/>
+                        </div>
+                        <div className="6u$ 12u$(xsmall)">
+                            <input type="text" name="prenom" id="prenom" placeholder="Prenom" required/>
+                        </div>
+                        <div className="5u$ 12u$(xsmall)">
+                            <input type="date" name="dateDepart" id="dateDepart" />
+                        </div>
+                        <div className="5u$ 12u$(xsmall)">
+                            <input type="date" name="dateArrivee" id="dateArrivee" />
+                        </div>
+                        <div className="12u$">
+                            <div className="select-wrapper">
+                                <select name="category" id="category">
+                                    { this.state.vols.map(
+                                        (item, index) => <option value={"vol"+index} >{item.idVol}</option>
+                                    )}
+                                </select>
+                            </div>
+                        </div>
+                        <div className="3u$ 12u$(small)">
+                            <input type="submit" value="Search" className="fit"/>
+                        </div>
                     </div>
                 </form>
-            </div>
         );
     }
 }
