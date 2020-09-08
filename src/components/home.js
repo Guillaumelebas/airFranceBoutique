@@ -1,25 +1,29 @@
 import * as React from "react";
-import volService from "../services/vol-service"
+import {VolService} from "../services/vol-service";
+const BASE_URL = 'http://localhost:4000';
+
 class Home extends React.Component {
     constructor(props) {
         super(props);
-        this.handleChange = this.handleChange.bind(this);
         this.state = {
             vols: []
         };
     }
 
     componentDidMount() {
-        this.volService.getVols()
+        /*VolService.getVols()
             .then(
                 (vols) => this.setState({vols: vols})
-            );
+            );*/
+        fetch(`${BASE_URL}/vol`)
+            .then((response) => response.json() )
+            .then( (r) => {this.setState({vols: r.data})} );
+            // .then((response) => this.setState({vols:response.data}) );
     }
 
     render() {
-<<<<<<< HEAD
         return (
-            
+
             <body>
             <div class="testbox">
               <form action="/">
@@ -39,9 +43,9 @@ class Home extends React.Component {
                   <p>Vol</p>
                   <select>
                     <option selected value="" disabled selected></option>
-                    <option value="vol1" >DTW-JFK(300)</option>
-                    <option value="vol1">CDG-JFK(1000)</option>
-                    <option value="vol1">CDG-DTW(700)</option>
+                      { this.state.vols.map(
+                          (item, index) => <option value={"vol"+index} >{item.idVol}</option>
+                      )}
                   </select>
                 </div>
                 <div class="btn-block">
@@ -50,10 +54,6 @@ class Home extends React.Component {
               </form>
             </div>
           </body>);
-        
-=======
-        return (<h1>Bonjour, {this.props.name}</h1>);
->>>>>>> c7fc5b5fc5e9d41a40e6c9d72c85f29fb4a93560
     }
 }
 

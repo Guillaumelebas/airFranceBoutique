@@ -1,10 +1,9 @@
-const BASE_URL = 'http://localhost:3306';
+const BASE_URL = 'http://localhost:4000';
 
 export class VolService {
-    async getVols() {
-        const response = await fetch(`${BASE_URL}/vols`)
-            .then((response) => response.json());
-
-        return response;
+    getVols() {
+        return fetch(`${BASE_URL}/vols`)
+            .then((response) => response.json())
+            .then((response) => response.data);
     }
 }
