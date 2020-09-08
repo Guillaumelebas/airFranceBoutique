@@ -11,14 +11,16 @@ class Liste2 extends React.Component {
     componentDidMount() {
         var url_string = window.location.href;
         var url = new URL(url_string);
-        var prenom = url.searchParams.get("prenom");
-        document.getElementById("prenom").value = prenom;
-        var nom = url.searchParams.get("nom");
-        document.getElementById("nom").value = nom;
+        var aeroportDepart = url.searchParams.get("aeroportDepart");
+        document.getElementById("aeroportDepart").value = aeroportDepart;
+        var aeroportArrivee = url.searchParams.get("aeroportArrivee");
+        document.getElementById("aeroportArrivee").value = aeroportArrivee;
         var dateDepart = url.searchParams.get("dateDepart");
         document.getElementById("dateDepart").value = dateDepart;
         var dateArrivee = url.searchParams.get("dateArrivee");
         document.getElementById("dateArrivee").value = dateArrivee;
+        var nbPassager = url.searchParams.get("nbPassager");
+        document.getElementById("nbPassager").value = nbPassager;
         /*VolService.getVols()
             .then(
                 (vols) => this.setState({vols: vols})
@@ -41,10 +43,11 @@ class Liste2 extends React.Component {
                                         (item, index) => <option value={"vol"+index} >{item.idVol}</option>
                                     )}
                                 </select>
-                                <input type="hidden" name="prenom" id="prenom" required/>
-                                <input type="hidden" name="nom" id="nom" required/>
+                                <input type="hidden" name="aeroportDepart" id="aeroportDepart" required/>
+                                <input type="hidden" name="aeroportArrivee" id="aeroportArrivee" required/>
                                 <input type="hidden" name="dateDepart" id="dateDepart" required/>
                                 <input type="hidden" name="dateArrivee" id="dateArrivee" required/>
+                                <input type="hidden" name="nbPassager" id="nbPassager" required/>
                             </div>
                         </div>
                         <div className="3u$ 12u$(small)">
