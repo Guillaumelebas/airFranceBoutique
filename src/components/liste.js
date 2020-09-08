@@ -5,10 +5,7 @@ const BASE_URL = 'http://localhost:4000';
 class Liste extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            vols: [],
-            result: []
-        };
+        this.state = {vols: [], result: []};
     }
 
     componentDidMount() {
@@ -22,12 +19,14 @@ class Liste extends React.Component {
         // .then((response) => this.setState({vols:response.data}) );
     }
 
+
+
     render() {
         return (
-                <form method="GET" action="/liste">
+                <form method="GET" action="/liste2">
                     <div className="row uniform">
                         <div className="6u 12u$(xsmall)">
-                            <input type="text" name="nom" id="nom" placeholder="Nom" required/>
+                            <input type="text" name="nom" id="nom" placeholder="Nom" onChange={this.handleChange} required/>
                         </div>
                         <div className="6u$ 12u$(xsmall)">
                             <input type="text" name="prenom" id="prenom" placeholder="Prenom" required/>
