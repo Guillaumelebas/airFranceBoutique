@@ -79,14 +79,14 @@ class Liste2 extends React.Component {
             <h3>Vol aller: </h3>
                 <div className="select-wrapper">
                     { this.state.volsAller && this.state.volsAller.map(
-                            (item, index) => <div><input type="checkbox" id={item.idVol} name="volAller"></input>
+                            (item, index) => <div><input type="checkbox" id={item.idVol} name="volAller" value={item.idVol}></input>
                             <label for={item.idVol}><b>{item.Depart}</b> ---------> <b>{item.Arrivee}</b></label></div>
                         )} 
                 </div>
                 <h3>Vol retour: </h3>
                 <div className="select-wrapper">
                     { this.state.volsRetour && this.state.volsRetour.map(
-                            (item, index) => <div><input type="checkbox" id={item.idVol} name="volRetour" ></input>
+                            (item, index) => <div><input type="checkbox" id={item.idVol} name="volRetour" value={item.idVol}></input>
                             <label for={item.idVol}><b>{item.Depart}</b> ---------> <b>{item.Arrivee}</b></label></div>
                         )} 
                 </div>
@@ -100,7 +100,7 @@ class Liste2 extends React.Component {
             <h4>promotion de -10 % </h4>
                 <div className="select-wrapper">
                     { this.state.vols && this.state.vols.map(
-                            (item, index) => <div><input type="checkbox" id={item.idVol} name="volAller"></input>
+                            (item, index) => <div><input type="checkbox" id={item.idVol} name={"vol"+item.idVol} value={item.idVol}></input>
                             <label for={item.idVol}><b>{item.Depart}</b> ---------> <b>{item.Arrivee}</b></label></div>
                         )} 
                 </div>
