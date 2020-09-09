@@ -12,14 +12,34 @@ class Recap extends React.Component {
         this.addCommande = this.addCommande.bind(this);
     }
 
+    componentDidMount() {
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var dateDepart = url.searchParams.get("dateDepart");
+        document.getElementById("dateDepart").value = dateDepart;
+        var dateArrivee = url.searchParams.get("dateArrivee");
+        document.getElementById("dateArrivee").value = dateArrivee;
+        var nbPassager = url.searchParams.get("nbPassager");
+        document.getElementById("nbPassager").value = nbPassager;   
+
+    }
+
     addReservations(idCommande){
         let url_string = window.location.href;
         let url = new URL(url_string);
-        let nbPassager = url.searchParams.get("nbPassager");
 
-        let idVol = document.getElementById("idVol").value;
-        let dateDepart = document.getElementById("dateDepart").value;
-        let dateArrivee = document.getElementById("dateArrivee").value;
+
+        let nbPassager = url.searchParams.get("nbPassager");
+        document.getElementById("nbPassager").value = nbPassager;
+
+        let idVol = url.searchParams.get("idVol");
+        document.getElementById("idVol").value = idVol;
+
+        let dateDepart = url.searchParams.get("dateDepart");
+        document.getElementById("dateDepart").value = dateDepart;
+
+        let dateArrivee = url.searchParams.get("dateArrivee");
+        document.getElementById("dateArrivee").value = dateArrivee;
 
         for(let i = 1; i<= nbPassager ; i++){
             let nomPassager = document.getElementById("nom"+i).value;
@@ -99,7 +119,11 @@ class Recap extends React.Component {
             <h1 style={{color:'black'}}>Adresse de facturation</h1>
             <input name="prenomClient" id="prenomClient" placeholder="Prenom Acheteur"/>
             <input name="nomClient" id="nomClient" placeholder="nom Acheteur"/>
-            <input name="mailClient" id="mailClient" placeholder="mail Acheteur"/></div>);
+            <input name="mailClient" id="mailClient" placeholder="mail Acheteur"/>
+            <input type="hidden" name="dateDepart" id="dateDepart" required/>
+            <input type="hidden" name="dateArrivee" id="dateArrivee" required/>
+            <input type="hidden" name="idVol" id="idVol" required/>
+            <input type="hidden" name="nbPassager" id="nbPassager" required/></div>);
 
 
 
