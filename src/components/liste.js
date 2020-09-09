@@ -52,7 +52,7 @@ class Liste extends React.Component {
                                             </select>
                                         </div>
                                         <div className="6u$ 12u$(xsmall)">
-                                            <select name="aeroportDepart" id="aeroportDepart">
+                                            <select name="aeroportArrivee" id="aeroportArrivee">
                                                 { this.state.aeroports.map(
                                                     (item, index) => <option value={item.idAeroport} >{item.villeAeroport}</option>
                                                 )}
