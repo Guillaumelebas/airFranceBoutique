@@ -1,6 +1,6 @@
 import * as React from "react";
 import {VolService} from "../services/vol-service";
-const BASE_URL = 'http://localhost:4000';
+const BASE_URL = 'https://intech-airfrance-api.herokuapp.com';
 
 class Recap extends React.Component {
     constructor(props) {
@@ -22,17 +22,29 @@ class Recap extends React.Component {
         // .then((response) => this.setState({vols:response.data}) );
     }
 
+    renderInput(){
+        var views = [];
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var nbPassager = url.searchParams.get("nbPassager");
+        for(var i = 0; i < nbPassager; i++){
+            views.push(
+                <p>TESTTETETST</p>
+            );
+        }
+
+        return views;
+    }
+
     render() {
         return (
                 <form method="GET" action="/recap">
                     <div className="row uniform">
                         <div className="12u$">
                             <div className="select-wrapper">
-                                <select name="category" id="category">
-                                    { this.state.vols.map(
-                                        (item, index) => <option value={"vol"+index} >{item.idVol}</option>
-                                    )}
-                                </select>
+                                    <div>
+                                        { this.renderInput() }
+                                    </div>
                             </div>
                         </div>
                         <div className="3u$ 12u$(small)">

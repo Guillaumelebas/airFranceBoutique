@@ -5,6 +5,7 @@ import Home from './components/home';
 import Liste from './components/liste';
 import Liste2 from './components/liste2';
 import MonVol from './components/mon-vol';
+import Recap from './components/recap';
 
 const Main = () => {
   return (
@@ -13,6 +14,7 @@ const Main = () => {
         <Route exact path='/liste' component={Liste}></Route>
         <Route exact path='/liste2' component={Liste2}></Route>
         <Route exact path='/mon-vol' component={MonVol}></Route>
+        <Route exact path='/recap' component={Recap}></Route>
       </Switch>
   );
 };

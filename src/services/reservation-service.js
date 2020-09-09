@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:4000';
+const BASE_URL = 'https://intech-airfrance-api.herokuapp.com';
 
 export class ReservationService {
     async getReservations(idUtilisateur) {
