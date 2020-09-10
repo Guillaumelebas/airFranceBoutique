@@ -3,18 +3,18 @@ import { Switch, Route } from 'react-router-dom';
 
 import Home from './components/home';
 import Liste from './components/liste';
-import Liste2 from './components/liste2';
+import ResultatRecherche from './components/resultat-recherche';
 import MonVol from './components/mon-vol';
-import Recap from './components/recap';
+import Paiement from './components/paiement';
 
 const Main = () => {
   return (
       <Switch>
         <Route exact path='/' component={Home}></Route>
         <Route exact path='/liste' component={Liste}></Route>
-        <Route exact path='/liste2' component={Liste2}></Route>
+        <Route exact path='/resultat-recherche' component={ResultatRecherche}></Route>
         <Route exact path='/mon-vol' component={MonVol}></Route>
-        <Route exact path='/recap' component={Recap}></Route>
+        <Route exact path='/paiement' component={Paiement}></Route>
       </Switch>
   );
 };

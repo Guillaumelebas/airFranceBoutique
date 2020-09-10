@@ -1,12 +1,14 @@
 import * as React from "react";
 import LittleHeader from "./little-header";
 import {VolService} from "../services/vol-service";
-const BASE_URL = 'https://intech-airfrance-api.herokuapp.com';
+import Spinner from "react-spinner-material";
+const BASE_URL = 'https://intech-airfrance-api.herokuapp.com/v1';
+// const BASE_URL = 'http://localhost:4545/v1';
 
-class Liste2 extends React.Component {
+class ResultatRecherche extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {vols:[], result: [], volsRetour: [], volsAller: [], isEscale: true };
+        this.state = {vols:[], isLoading: true, volsRetour: [], volsAller: [], isEscale: true };
 
         this.handleClick = this.handleClick.bind(this);
         this.renderWithoutEscale = this.renderWithoutEscale.bind(this);
@@ -26,11 +28,34 @@ class Liste2 extends React.Component {
         document.getElementById("dateArrivee").value = dateArrivee;
         var nbPassager = url.searchParams.get("nbPassager");
         document.getElementById("nbPassager").value = nbPassager;
-        /*VolService.getVols()
-            .then(
-                (vols) => this.setState({vols: vols})
-            );*/
-        fetch(`${BASE_URL}/vol/query?idAeroportDepart=${aeroportDepart}&idAeroportArrivee=${aeroportArrivee}&dateDepart=${dateDepart}&dateArrivee=${dateArrivee}`)
+
+        const data = {
+            "dateDepart": dateDepart,
+            "dateArrivee": dateArrivee,
+            "idAeroportDepart": aeroportDepart,
+            "idAeroportArrivee": aeroportArrivee,
+            "nbPassager" : nbPassager
+        }
+        const options = {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }
+        fetch(`${BASE_URL}/vol/query`, options)
+            .then((response) => response.json() )
+            .then( (r) => {
+                console.log(r);
+                this.setState({vols: r.data})
+                const tabR = this.getVolRetourDirect();
+                this.setState({volsRetour: tabR});
+                const tabA = this.getVolAllerDirect();
+                this.setState({volsAller: tabA});
+                this.setState({isLoading: false});
+            } );
+
+        /*fetch(`${BASE_URL}/vol/query?idAeroportDepart=${aeroportDepart}&idAeroportArrivee=${aeroportArrivee}&dateDepart=${dateDepart}&dateArrivee=${dateArrivee}`)
             .then((response) => response.json() )
             .then( (r) => {
                 console.log(r);
@@ -40,8 +65,8 @@ class Liste2 extends React.Component {
                 const tabA = this.getVolAllerDirect();
                 this.setState({volsAller: tabA});
             } );
+    */
 
-            
 
     }
 
@@ -77,19 +102,43 @@ class Liste2 extends React.Component {
         return (
             <div className="12u$">
             <h3>Vol aller: </h3>
-                <div className="select-wrapper">
-                    { this.state.volsAller && this.state.volsAller.map(
-                            (item, index) => <div><input type="checkbox" id={item.idVol} name="volAller" value={item.idVol}></input>
-                            <label for={item.idVol}><b>{item.Depart}</b> ---------> <b>{item.Arrivee}</b></label></div>
-                        )} 
-                </div>
+                {this.state.isLoading ? this.renderLoading() :
+                    <div className="select-wrapper">
+                        <table cellSpacing="0" cellPadding="0">
+                        {this.state.volsAller && this.state.volsAller.map(
+                            (item, index) =>
+                                <tr>
+                                    <td><input type="checkbox" id={item.idVol} name={"vol"+index}
+                                                                 value={item.idVol}></input>
+                                        <label
+                                            htmlFor={item.idVol}><b>{item.Depart}</b> ---------> <b>{item.Arrivee}</b></label>
+                                    </td>
+                                    <td>{item.prixVol} €
+                                    </td>
+                                </tr>
+                        )}
+                        </table>
+                    </div>
+                }
                 <h3>Vol retour: </h3>
-                <div className="select-wrapper">
-                    { this.state.volsRetour && this.state.volsRetour.map(
-                            (item, index) => <div><input type="checkbox" id={item.idVol} name="volRetour" value={item.idVol}></input>
-                            <label for={item.idVol}><b>{item.Depart}</b> ---------> <b>{item.Arrivee}</b></label></div>
-                        )} 
-                </div>
+                {this.state.isLoading ? this.renderLoading() :
+                    <div className="select-wrapper">
+                        <table cellSpacing="0" cellPadding="0">
+                        {this.state.volsRetour && this.state.volsRetour.map(
+                            (item, index) =>
+                                <tr>
+                                    <td><input type="checkbox" id={item.idVol} name={"vol"+index}
+                                               value={item.idVol}></input>
+                                    <label
+                                        htmlFor={item.idVol}><b>{item.Depart}</b> ---------> <b>{item.Arrivee}</b></label>
+                                </td>
+                                <td>{item.prixVol} €
+                                </td>
+                            </tr>
+                        )}
+                        </table>
+                    </div>
+                }
             </div>);
     }
 
@@ -98,19 +147,37 @@ class Liste2 extends React.Component {
             <div className="12u$">
             <h3>Vols disponibles: </h3>
             <h4>promotion de -10 % </h4>
-                <div className="select-wrapper">
-                    { this.state.vols && this.state.vols.map(
-                            (item, index) => <div><input type="checkbox" id={item.idVol} name={"vol"+item.idVol} value={item.idVol}></input>
-                            <label for={item.idVol}><b>{item.Depart}</b> ---------> <b>{item.Arrivee}</b></label></div>
-                        )} 
-                </div>
+                {this.state.isLoading ? this.renderLoading() :
+                    <div className="select-wrapper">
+                        <table cellSpacing="0" cellPadding="0">
+                        {this.state.vols && this.state.vols.map(
+                            (item, index) => <tr>
+                                <td><input type="checkbox" id={item.idVol} name={"vol"+index}
+                                               value={item.idVol}></input>
+                                    <label
+                                        htmlFor={item.idVol}><b>{item.Depart}</b> ---------> <b>{item.Arrivee}</b></label>
+                                </td>
+                                <td>{item.prixVol} €
+                                </td>
+                            </tr>
+                        )}
+                        </table>
+                    </div>
+                }
             </div>
             );
     }
 
+    renderLoading(){
+        return (
+            <div style={{display: 'flex', justifyContent: 'center'}}>
+                <Spinner size={120} spinnerColor={"#333"} spinnerWidth={2} visible={true} />
+            </div>
+        );
+    }
     render() {
         return (
-            <div>   
+            <div>
             <LittleHeader/>
             <section id="two" class="wrapper style2">
                 <div class="inner">
@@ -123,9 +190,8 @@ class Liste2 extends React.Component {
                             <button onClick={this.handleClick}>
                                    {this.state.isEscale ? 'sans escale' : 'avec escale'}
                             </button>
-                            <form method="GET" action="/recap">
+                            <form method="GET" action="/paiement">
                                 <div className="row uniform">
-                                
 
                                     {this.state.isEscale == true ? this.renderWithEscale() : this.renderWithoutEscale() }
 
@@ -139,7 +205,7 @@ class Liste2 extends React.Component {
                                     </div>
                                 </div>
                             </form>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -149,4 +215,5 @@ class Liste2 extends React.Component {
     }
 }
 
-export default Liste2;
+export default ResultatRecherche;
+

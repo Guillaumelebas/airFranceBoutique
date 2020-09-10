@@ -1,7 +1,8 @@
 import * as React from "react";
 import LittleHeader from "./little-header";
 import {VolService} from "../services/vol-service";
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = 'https://intech-airfrance-api.herokuapp.com/v1';
+// const BASE_URL = 'http://localhost:4545/v1';
 
 class MonVol extends React.Component {
     constructor(props) {
@@ -26,17 +27,17 @@ class MonVol extends React.Component {
                                 </header>
 
                                 <form method="GET" action="/liste">
-                                    
+
                                         <center>
                                             <div class="6u 12u$(xsmall)">
-                                                
+
                                                     <input type="text" name="numReservation" id="numReservation" placeholder="Numéro de reservation" />
-                                                
+
                                             </div>
-                                        
+
                                         <br></br>
                                             <div class="4u 12u$">
-                                            
+
                                                 <ul class="actions">
                                                     <input type="submit" value="Rechercher" class="alt" />
                                                 </ul>
@@ -46,7 +47,7 @@ class MonVol extends React.Component {
                                                 </div>
                                             </div>
                                         </center>
-                                    
+
                                 </form>
 
                         </div>
